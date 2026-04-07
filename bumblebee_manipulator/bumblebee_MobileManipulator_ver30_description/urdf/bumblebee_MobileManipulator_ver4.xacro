@@ -1,0 +1,553 @@
+<?xml version="1.0" ?>
+<robot name="bumblebee_MobileManipulator_ver4" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="prefix" default="" />
+  <xacro:arg name="use_sim" default="false" />
+  <xacro:arg name="use_fake_hardware" default="false" />
+  <xacro:arg name="fake_sensor_commands" default="false" />
+  <xacro:arg name="port_name" default="/dev/ttyUSB0" />
+
+<xacro:include filename="$(find bumblebee_MobileManipulator_ver30_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find bumblebee_MobileManipulator_ver30_description)/urdf/bumblebee_MobileManipulator_ver4.trans" />
+<xacro:include filename="$(find bumblebee_MobileManipulator_ver30_description)/urdf/bumblebee_MobileManipulator_ver4.gazebo" />
+<xacro:include filename="$(find bumblebee_description)/ros2_control/open_manipulator_x_system.ros2_control.xacro" />
+<xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro"/>
+<xacro:include filename="$(find zed_wrapper)/urdf/zed_macro.urdf.xacro" />
+
+  <xacro:open_manipulator_x_system
+    name="OpenManipulatorXSystem" prefix="$(arg prefix)" use_sim="$(arg use_sim)"
+    use_fake_hardware="$(arg use_fake_hardware)"
+    fake_sensor_commands="$(arg fake_sensor_commands)"
+    port_name="$(arg port_name)"/>
+
+
+<link name="base_footprint"/>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.00252265690628608 -0.12732694720504795 0.26595034866220746" rpy="0 0 0"/>
+    <mass value="13.5371834135364"/>
+    <inertia ixx="0.623168" iyy="0.704428" izz="0.763361" ixy="-4.3e-05" iyz="-0.0" ixz="-0.003061"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wheel_link_FL_1">
+  <inertial>
+    <origin xyz="3.61371607557337e-06 0.0007347453135027326 -1.0784975511546335e-05" rpy="0 0 0"/>
+    <mass value="1.81582261514174"/>
+    <inertia ixx="0.006881" iyy="0.010984" izz="0.00688" ixy="0.0" iyz="-0.0" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.1955 -0.160673 -0.065131" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/wheel_link_FL_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.1955 -0.160673 -0.065131" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/wheel_link_FL_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wheel_link_FR_1">
+  <inertial>
+    <origin xyz="3.6137160755456144e-06 -0.0007340881454535042 9.868588503464393e-06" rpy="0 0 0"/>
+    <mass value="1.81582261514174"/>
+    <inertia ixx="0.006881" iyy="0.010984" izz="0.00688" ixy="-0.0" iyz="-0.0" ixz="-1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.1955 0.415327 -0.065131" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/wheel_link_FR_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.1955 0.415327 -0.065131" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/wheel_link_FR_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wheel_link_BR_1">
+  <inertial>
+    <origin xyz="3.61371607557337e-06 -0.0007340881454535042 9.868588502964792e-06" rpy="0 0 0"/>
+    <mass value="1.81582261514174"/>
+    <inertia ixx="0.006881" iyy="0.010984" izz="0.00688" ixy="-0.0" iyz="-0.0" ixz="-1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.1955 0.415327 -0.065131" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/wheel_link_BR_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.1955 0.415327 -0.065131" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/wheel_link_BR_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wheel_link_BL_1">
+  <inertial>
+    <origin xyz="3.6137160755456144e-06 0.0007347453135027326 -1.0784975511546335e-05" rpy="0 0 0"/>
+    <mass value="1.81582261514174"/>
+    <inertia ixx="0.006881" iyy="0.010984" izz="0.00688" ixy="0.0" iyz="-0.0" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.1955 -0.160673 -0.065131" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/wheel_link_BL_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.1955 -0.160673 -0.065131" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/wheel_link_BL_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+<!--
+<link name="zed_camera_link">
+  <inertial>
+    <origin xyz="-0.015799999999999925 3.285840201594503e-07 0.014999541806495986" rpy="0 0 0"/>
+    <mass value="0.1654847237670237"/>
+    <inertia ixx="0.000434" iyy="2.6e-05" izz="0.000436" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.2805 0.127327 -0.339081" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver4_description)/meshes/zedcamera_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.2805 0.127327 -0.339081" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver4_description)/meshes/zedcamera_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+-->
+<!--
+<link name="lift_link_1">
+  <inertial>
+    <origin xyz="-4.973799150320702e-16 -0.12499967141598067 0.004496583226614503" rpy="0 0 0"/>
+    <mass value="8.449999999999998"/>
+    <inertia ixx="0.05731" iyy="0.091161" izz="0.134872" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.0 0.002327 -0.424081" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/lift_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.0 0.002327 -0.424081" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/lift_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+-->
+
+<link name="lift_link_1">
+  <inertial>
+    <origin xyz="-0.005290286857578107 0.0013435854163934685 0.051418913367622054" rpy="0 0 0"/>
+    <mass value="8.718874082873453"/>
+    <inertia ixx="0.062838" iyy="0.103174" izz="0.150201" ixy="0.001006" iyz="-0.000809" ixz="0.002869"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.0 -0.1255 -0.462" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/lift_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.0 -0.1255 -0.462" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/lift_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+
+<link name="laser">
+  <inertial>
+    <origin xyz="-0.0009340226171449251 -0.000257010438005425 0.01908524213222229" rpy="0 0 0"/>
+    <mass value="0.16306551602426742"/>
+    <inertia ixx="7.6e-05" iyy="7.6e-05" izz="0.000108" ixy="0.0" iyz="1e-06" ixz="2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.186385 0.0 -0.559" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/lidar_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.186385 0.0 -0.559" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/lidar_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="manipulator_joint_base_1">
+  <inertial>
+    <origin xyz="0.002782982052454382 3.044819653907904e-07 0.028800961440997752" rpy="0 0 0"/>
+    <mass value="0.3989397642231499"/>
+    <inertia ixx="0.000743" iyy="0.00077" izz="0.001085" ixy="-0.0" iyz="-0.0" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.0 0.127327 -0.474081" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/manipulator_joint_base_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.0 0.127327 -0.474081" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/manipulator_joint_base_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="manipulator_joint1_1">
+  <inertial>
+    <origin xyz="-7.375351223402498e-10 0.006529283950442638 0.06246441610769515" rpy="0 0 0"/>
+    <mass value="0.8189949726114317"/>
+    <inertia ixx="0.002964" iyy="0.002491" izz="0.002352" ixy="-0.0" iyz="6.1e-05" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.0 0.127327 -0.543381" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/manipulator_joint1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.0 0.127327 -0.543381" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/manipulator_joint1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="manipulator_joint2_1">
+  <inertial>
+    <origin xyz="0.00609681034284561 0.014805723997801806 0.16758772839822944" rpy="0 0 0"/>
+    <mass value="0.8330180312075797"/>
+    <inertia ixx="0.015014" iyy="0.014784" izz="0.001379" ixy="-0.000177" iyz="-0.002376" ixz="-0.000733"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.0 0.184827 -0.623381" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/manipulator_joint2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.0 0.184827 -0.623381" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/manipulator_joint2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="manipulator_joint3_1">
+  <inertial>
+    <origin xyz="0.07251374232494093 0.027176223612132566 0.0005696826325561899" rpy="0 0 0"/>
+    <mass value="0.22622398898015728"/>
+    <inertia ixx="0.000145" iyy="0.000318" izz="0.000316" ixy="3e-06" iyz="0.0" ixz="-5e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.053033 0.160827 -0.951414" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/manipulator_joint3_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.053033 0.160827 -0.951414" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/manipulator_joint3_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="manipulator_joint4_1">
+  <inertial>
+    <origin xyz="0.02813385835354984 1.0257296833904306e-05 -4.49581986305958e-07" rpy="0 0 0"/>
+    <mass value="0.13274674907697026"/>
+    <inertia ixx="6.6e-05" iyy="6.9e-05" izz="8.1e-05" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.188133 0.133827 -0.968914" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/manipulator_joint4_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.188133 0.133827 -0.968914" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/manipulator_joint4_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="manipulator_joint5_1">
+  <inertial>
+    <origin xyz="0.05305741031009675 0.02316953514454212 0.0010241991830604036" rpy="0 0 0"/>
+    <mass value="0.15301633231391648"/>
+    <inertia ixx="7.8e-05" iyy="0.000117" izz="0.000115" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.241502 0.157927 -0.968914" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/manipulator_joint5_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.241502 0.157927 -0.968914" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/manipulator_joint5_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="manipulator_joint_endeffector_1">
+  <inertial>
+    <origin xyz="0.04548892421341544 2.495070605679217e-07 0.025499896106397357" rpy="0 0 0"/>
+    <mass value="0.07914674358509487"/>
+    <inertia ixx="2.9e-05" iyy="6.5e-05" izz="4.9e-05" ixy="-0.0" iyz="-0.0" ixz="2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.325602 0.134677 -0.945884" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/manipulator_joint_endeffector_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.325602 0.134677 -0.945884" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/manipulator_joint_endeffector_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<!--
+<link name="realsensecamera_link_1">
+  <inertial>
+    <origin xyz="0.012169927907352829 0.02249979878843522 -4.866471037101583e-05" rpy="0 0 0"/>
+    <mass value="0.04820095316351458"/>
+    <inertia ixx="3e-05" iyy="4e-06" izz="3.1e-05" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.361602 0.157177 -1.003484" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver4_description)/meshes/realsensecamera_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.361602 0.157177 -1.003484" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver4_description)/meshes/realsensecamera_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+-->
+
+<link name="manipulator_joint_pinnacle_1">
+  <inertial>
+    <origin xyz="0.0298142027634396 3.285821801035649e-07 -0.02235046463736179" rpy="0 0 0"/>
+    <mass value="0.01758455678060745"/>
+    <inertia ixx="5e-06" iyy="9e-06" izz="6e-06" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.399902 0.134677 -0.992084" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/manipulator_joint_pinnacle_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.399902 0.134677 -0.992084" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find bumblebee_MobileManipulator_ver30_description)/meshes/manipulator_joint_pinnacle_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="wheel_left_joint" type="continuous"> <!--#1-->
+  <origin xyz="0.1955 0.160673 0.065131" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="wheel_link_FL_1"/>
+  <axis xyz="0.0 -1.0 -0.0"/>
+</joint>
+
+<joint name="wheel_right_joint" type="continuous"> <!--#2-->
+  <origin xyz="0.1955 -0.415327 0.065131" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="wheel_link_FR_1"/>
+  <axis xyz="-0.0 1.0 0.0"/>
+</joint>
+
+<joint name="wheel_joint3" type="continuous"> <!--#3-->
+  <origin xyz="-0.1955 -0.415327 0.065131" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="wheel_link_BR_1"/>
+  <axis xyz="-0.0 1.0 0.0"/>
+</joint>
+
+<joint name="wheel_joint4" type="continuous"> <!--#4-->
+  <origin xyz="-0.1955 0.160673 0.065131" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="wheel_link_BL_1"/>
+  <axis xyz="0.0 -1.0 -0.0"/>
+</joint>
+
+<joint name="zed_joint1" type="fixed"> 
+  <origin xyz="0.2805 -0.127327 0.339081" rpy="0 0 0"/>l
+  <parent link="base_link"/>
+  <child link="zed_camera_link"/>
+</joint>
+
+<xacro:zed_camera name="zed" model="zed2" enable_gnss="false" >
+  <origin xyz="0.2805 -0.127327 0.339081" rpy="0 0 0"/>
+</xacro:zed_camera>
+
+<joint name="linear_joint1" type="prismatic"> <!--#6-->
+  <origin xyz="0.0 -0.002327 0.424081" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="lift_link_1"/>
+  <axis xyz="0.0 -0.0 1.0"/>
+  <limit upper="0.32" lower="0.0" effort="100" velocity="100"/>
+</joint>
+
+
+<joint name="lift_to_lidar" type="fixed">
+  <origin xyz="0.186385 -0.125 0.0559" rpy="0 0 0"/>
+  <parent link="lift_link_1"/>
+  <child link="laser"/>
+</joint>
+
+<joint name="lift_to_mani_joint1" type="fixed"> <!--#7-->
+  <origin xyz="0.0 -0.125 0.05" rpy="0 0 0"/> <!--0.0 -0.125 0.05-->
+  <parent link="lift_link_1"/>
+  <child link="manipulator_joint_base_1"/>
+</joint>
+
+<joint name="joint1" type="revolute"> <!--#8-->
+  <origin xyz="0.0 0.0 0.0693" rpy="0 0 0"/> 
+  <parent link="manipulator_joint_base_1"/>
+  <child link="manipulator_joint1_1"/>
+  <axis xyz="0.0 -0.0 1.0"/>
+  <limit velocity="4.8" effort="1" lower="${-pi}" upper="${pi}" />
+</joint>
+
+<joint name="joint2" type="continuous"> <!--#9-->
+  <origin xyz="0.0 -0.0575 0.08" rpy="0 0 0"/>
+  <parent link="manipulator_joint1_1"/>
+  <child link="manipulator_joint2_1"/>
+  <axis xyz="-0.0 -1.0 -0.0"/>
+ <limit effort="1" velocity="7.2"/>
+</joint>
+
+<joint name="joint3" type="revolute"> <!--#10-->
+  <origin xyz="0.053033 0.024 0.328033" rpy="0 -0.7854 0"/>
+  <parent link="manipulator_joint2_1"/>
+  <child link="manipulator_joint3_1"/>
+  <axis xyz="0.0 -1.0 0.0"/>
+  <limit velocity="4.8" effort="1" lower="${-pi*0.54}" upper="${pi*0.25}" />
+</joint>
+
+<joint name="joint4" type="revolute"> <!--#11-->
+  <origin xyz="0.1351 0.027 0.0175" rpy="0 0 0"/>
+  <parent link="manipulator_joint3_1"/>
+  <child link="manipulator_joint4_1"/>
+  <axis xyz="1.0 -0.0 0.0"/>
+  <limit velocity="4.8" effort="1" lower="${-pi}" upper="${pi}" />
+</joint>
+
+<joint name="joint5" type="revolute"> <!--#12-->
+  <origin xyz="0.053369 -0.0241 0.0" rpy="0 0 0"/>
+  <parent link="manipulator_joint4_1"/>
+  <child link="manipulator_joint5_1"/>
+  <axis xyz="-0.0 -1.0 -0.0"/>
+   <limit velocity="4.8" effort="1" lower="${-pi*0.5}" upper="${pi*0.5}" />
+</joint>
+
+<joint name="joint6" type="revolute"> <!--#13-->
+  <origin xyz="0.0841 0.02325 -0.02303" rpy="0 0 0"/>
+  <parent link="manipulator_joint5_1"/>
+  <child link="manipulator_joint_endeffector_1"/>
+  <axis xyz="0.0 0.0 -1.0"/>
+   <limit velocity="4.8" effort="1" lower="${-pi*0.5}" upper="${pi*0.5}" />
+</joint>
+
+<xacro:sensor_d435i parent="manipulator_joint_endeffector_1">
+<origin xyz="0.0462 0.0 0.0452" rpy="0 0 0"/> 
+</xacro:sensor_d435i>
+
+<joint name="joint7" type="revolute"> <!--#15-->
+  <origin xyz="0.0743 0.0 0.0462" rpy="0 0 0"/>
+  <parent link="manipulator_joint_endeffector_1"/>
+  <child link="manipulator_joint_pinnacle_1"/>
+  <axis xyz="-0.0 -0.0 1.0"/>
+  <limit upper="1.570796" lower="-1.570796" effort="1" velocity="4.8"/>
+</joint>
+
+<link name="real_hand"/>
+
+<joint name="gripper_tip_joint" type="fixed">
+  <parent link="manipulator_joint_pinnacle_1"/>
+  <child link="real_hand"/>
+  <origin xyz="0.065 0 0" rpy="0 0 0"/>
+</joint>
+ 
+ 
+ <!-- World
+  <link name="world"/>
+
+  <joint name="world_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="world"/>
+    <child link="base_footprint"/>
+  </joint>
+-->
+</robot>

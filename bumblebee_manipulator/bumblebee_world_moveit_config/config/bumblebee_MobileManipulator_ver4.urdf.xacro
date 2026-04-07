@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="bumblebee_MobileManipulator_ver4">
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+
+    <!-- Import bumblebee_MobileManipulator_ver4 urdf file -->
+    <xacro:include filename="$(find bumblebee_MobileManipulator_ver30_description)/urdf/bumblebee_MobileManipulator_ver4.xacro" />
+
+    <!-- Import control_xacro -->
+    <xacro:include filename="bumblebee_MobileManipulator_ver4.ros2_control.xacro" />
+
+
+    <xacro:bumblebee_MobileManipulator_ver4_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
+
+</robot>
