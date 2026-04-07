@@ -47,47 +47,5 @@ Camera → YOLO → 3D 좌표 → TF 변환 → MoveIt → Manipulation
 
 ---
 
-## ⚙️ Key Implementation
-
-### 1. 3D 좌표 추정
-- YOLO로 검출된 2D 픽셀 좌표를 3D 공간 좌표로 변환  
-- 카메라 내부 파라미터 및 Depth 정보를 활용  
-- 렌즈 왜곡 보정 적용 (`cv2.undistortPoints`)  
-
-```python
-def get_3d_point(self, pixel_x: int, pixel_y: int, depth_image: np.ndarray):
-    try:
-        if 0 <= pixel_x < self.WIDTH and 0 <= pixel_y < self.HEIGHT:
-            depth = depth_image[int(round(pixel_y)), int(round(pixel_x))]
-
-            if depth > 0:
-                w, h = self.WIDTH, self.HEIGHT
-                
-                camera_matrix = np.array([[889.20439927, 0., 645.90808215],
-                                          [0.,  891.14540673, 363.20254286],
-                                          [0., 0., 1.]])
-                
-                dist_coeffs = np.array([[0.19324328, -0.6149969,   0.00296531, -0.00147052,  0.58687461]])
-                
-                new_camera_matrix, _ = cv2.getOptimalNewCameraMatrix(camera_matrix, dist_coeffs, (w, h), 1, (w, h))
-
-                undistorted_pixel = cv2.undistortPoints(
-                    np.array([[pixel_x, pixel_y]], dtype=np.float32),
-                    camera_matrix,
-                    dist_coeffs,
-                    None,
-                    new_camera_matrix
-                ).reshape(-1)
-
-                fx, fy = new_camera_matrix[0, 0], new_camera_matrix[1, 1]
-                cx, cy = new_camera_matrix[0, 2], new_camera_matrix[1, 2]
-
-                X = (undistorted_pixel[0] - cx) * depth / fx
-                Y = (undistorted_pixel[1] - cy) * depth / fy
-                Z = depth
-
-                return (X * self.depth_scale, Y * self.depth_scale, Z * self.depth_scale)
-
-        return None
 
 
